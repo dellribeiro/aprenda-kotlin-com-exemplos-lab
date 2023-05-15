@@ -2,12 +2,18 @@ import java.time.LocalDate
 
 enum class Nivel { BASICO, INTERMEDIARIO, AVANCADO }
 
-class Usuario(
+data class Usuario(
     val nome: String,
     val sobrenome: String,
     val email: String,
     val dataNascimento: LocalDate
 ){
+    init {
+        require(nome.isNotBlank()) { "Nome não pode ser vazio." }
+        require(sobrenome.isNotBlank()) { "Sobrenome não pode ser vazio." }
+        require(email.isNotBlank()) { "Email não pode ser vazio." }
+        requireNotNull(dataNascimento) { "Data de nascimento não pode ser nula." }
+    }
     val nomeCompleto: String = "$nome $sobrenome"
     val formacoesConcluidas = mutableListOf<Formacao>()
     val formacaoInscritas = mutableListOf<Formacao>()
